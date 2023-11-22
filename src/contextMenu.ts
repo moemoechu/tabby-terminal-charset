@@ -5,6 +5,7 @@ import {
   ConfigService,
   LogService,
   MenuItemOptions,
+  SplitTabComponent,
   TabContextMenuItemProvider,
   TranslateService,
 } from "tabby-core";
@@ -28,6 +29,9 @@ export class CharsetContextMenu extends TabContextMenuItemProvider {
   }
 
   async getItems(tab: BaseTabComponent): Promise<MenuItemOptions[]> {
+    if (!(tab instanceof SplitTabComponent)) {
+      return [];
+    }
     return [
       {
         label: this.translate.instant("Charset"),
@@ -37,7 +41,6 @@ export class CharsetContextMenu extends TabContextMenuItemProvider {
           label: this.translate.instant(value),
           checked: (tab as any)._charset === value,
           click: () => {
-            console.log(tab);
             (tab as any)._charset = value;
           },
         })),

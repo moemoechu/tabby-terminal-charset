@@ -23,13 +23,12 @@ export default class CharsetMiddleware extends SessionMiddleware {
   }
 
   feedFromSession(data: Buffer): void {
-    const dataString = data.toString();
+    // const dataString = data.toString();
     const charset = (this.tab.parent as any)._charset;
     if (!charset || charset === "utf-8") {
       return super.feedFromSession(data);
     }
     const decodedDataString = iconv.decode(data, charset);
-    console.log(decodedDataString);
     const decodedData = Buffer.from(decodedDataString);
     super.feedFromSession(decodedData);
   }
