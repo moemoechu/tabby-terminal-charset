@@ -19,6 +19,10 @@ To install, use Tabby builtin plugin manager.
 
 To change terminal charset, use the context menu from tab header.
 
+### Tips
+
+This plugin is only for emergency use, the output may become mess if there are multiply charset mixed in one page.
+
 ## Screenshot
 
 ### UTF-8
