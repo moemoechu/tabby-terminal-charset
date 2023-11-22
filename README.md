@@ -6,7 +6,7 @@ Change Tabby terminal output charset from utf-8 to gbk, gb2312 etc...
 
 - [x] Support GBK charset.
 - [x] Support GB2312 charset.
-- [ ] Embedding charset setting to profile.
+- [ ] ~~Embedding charset setting to profile.~~ (no api)
 - [x] Tested on Windows and MacOS with Tabby version 1.0.205.
 
 ## Usage
