@@ -10,12 +10,12 @@ import TabbyCoreModule, {
 import { SettingsTabProvider } from "tabby-settings";
 import { TerminalDecorator } from "tabby-terminal";
 
-import { CharsetConfigProvider } from "./configProvider";
+import { CharsetConfigProvider } from "./config.provider";
 import { CharsetDecorator } from "./charset.decorator";
 import { CharsetService } from "./charset.service";
 import { CharsetSettingsTabComponent } from "./settingsTab.component";
 import { CharsetSettingsTabProvider } from "./settingsTabProvider";
-import { CharsetContextMenu } from "./contextMenu";
+import { CharsetContextMenu } from "./context-menu.provider";
 
 @NgModule({
   imports: [CommonModule, FormsModule, TabbyCoreModule, NgbModule],

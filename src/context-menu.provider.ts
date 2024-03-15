@@ -10,10 +10,8 @@ import {
   TranslateService,
 } from "tabby-core";
 import { ElectronService, ElectronHostWindow } from "tabby-electron";
-
-// import "./styles.scss";
-
-const charsets = ["utf-8", "gbk", "gb2312"];
+import { BaseTerminalTabComponent } from "tabby-terminal";
+import { CharsetEngagedTab, SupportedCharset } from "./api";
 
 @Injectable()
 export class CharsetContextMenu extends TabContextMenuItemProvider {
@@ -28,20 +26,20 @@ export class CharsetContextMenu extends TabContextMenuItemProvider {
     super();
   }
 
-  async getItems(tab: BaseTabComponent): Promise<MenuItemOptions[]> {
-    if (!(tab instanceof SplitTabComponent)) {
+  async getItems(tab: CharsetEngagedTab): Promise<MenuItemOptions[]> {
+    if (!(tab instanceof BaseTerminalTabComponent)) {
       return [];
     }
     return [
       {
         label: this.translate.instant("Charset"),
         type: "submenu",
-        submenu: charsets.map((value) => ({
+        submenu: SupportedCharset.map((value) => ({
           type: "radio",
-          label: this.translate.instant(value),
-          checked: (tab as any)._charset === value,
+          label: this.translate.instant(value.name),
+          checked: tab.charset === value.charset,
           click: () => {
-            (tab as any)._charset = value;
+            tab.charset = value.charset;
           },
         })),
       },

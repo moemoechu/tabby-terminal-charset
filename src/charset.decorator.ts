@@ -1,9 +1,10 @@
-import { Injectable } from "@angular/core";
+import { Injectable, Injector } from "@angular/core";
 import { ToastrService } from "ngx-toastr";
 import { BaseTabComponent, ConfigService, LogService, Logger, TranslateService } from "tabby-core";
 import { BaseSession, BaseTerminalTabComponent, TerminalDecorator } from "tabby-terminal";
 import { debounce } from "utils-decorators";
 import CharsetMiddleware from "./charset.middleware";
+import { CharsetEngagedTab } from "./api";
 
 @Injectable()
 export class CharsetDecorator extends TerminalDecorator {
@@ -12,7 +13,8 @@ export class CharsetDecorator extends TerminalDecorator {
     private config: ConfigService,
     private logService: LogService,
     private toastr: ToastrService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    protected injector: Injector
   ) {
     super();
 
@@ -24,25 +26,20 @@ export class CharsetDecorator extends TerminalDecorator {
       // v136+
       tab.sessionChanged$.subscribe((session) => {
         if (session) {
-          this.attachToSession(session, tab);
+          this.attachToSession(session, tab as any);
         }
       });
     }
     if (tab.session) {
-      this.attachToSession(tab.session, tab);
+      this.attachToSession(tab.session, tab as any);
     }
   }
 
-  private attachToSession(session: BaseSession, tab: BaseTerminalTabComponent<any>) {
-    if (!(tab.parent instanceof BaseTabComponent)) {
-      return;
-    }
-    const middleware = new CharsetMiddleware(
-      tab,
-      this.config.store.charsetPlugin,
-      this.logger,
-      this.toast.bind(this)
-    );
+  private attachToSession(session: BaseSession, tab: CharsetEngagedTab) {
+    // if (!(tab.parent instanceof BaseTabComponent)) {
+    //   return;
+    // }
+    const middleware = new CharsetMiddleware(this.injector, tab);
     session.middleware.push(middleware);
   }
 

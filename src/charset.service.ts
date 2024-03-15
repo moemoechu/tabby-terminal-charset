@@ -15,10 +15,13 @@ export class CharsetService {
 
     this.config.ready$.subscribe(() => {
       this.logger.info("config ready");
-      for (const translation of translations) {
-        const [lang, trans] = translation;
-        this.translate.setTranslation(lang, trans, true);
-      }
+      setImmediate(() => {
+        for (const translation of translations) {
+          const [lang, trans] = translation;
+          this.translate.setTranslation(lang, trans, true);
+          this.logger.info("translate applied");
+        }
+      });
     });
   }
 }

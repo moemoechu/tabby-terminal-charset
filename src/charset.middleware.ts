@@ -1,36 +1,46 @@
 import iconv from "iconv-lite";
 import { Logger } from "tabby-core";
 import { BaseTerminalTabComponent, SessionMiddleware } from "tabby-terminal";
-import { CharsetPluginConfig } from "./configProvider";
+import { CharsetPluginConfig } from "./config.provider";
+import { Injector } from "@angular/core";
+import { CharsetEngagedTab } from "./api";
+
+function isUTF8Character(char) {
+  // Convert the character to a buffer
+  const buffer = Buffer.from(char, "utf8");
+
+  // Check if the buffer is valid UTF-8
+  return Buffer.compare(Buffer.from(buffer.toString("utf8")), buffer) === 0;
+}
 
 export default class CharsetMiddleware extends SessionMiddleware {
-  tab: BaseTerminalTabComponent<any>;
-  config: CharsetPluginConfig;
-  logger: Logger;
-  toast: Function;
+  tab: CharsetEngagedTab;
 
-  constructor(
-    tab: BaseTerminalTabComponent<any>,
-    config: CharsetPluginConfig,
-    logger?: Logger,
-    toast?: Function
-  ) {
+  constructor(injector: Injector, tab: CharsetEngagedTab) {
     super();
     this.tab = tab;
-    this.config = config;
-    this.logger = logger;
-    this.toast = toast;
   }
 
   feedFromSession(data: Buffer): void {
     // const dataString = data.toString();
-    const charset = (this.tab.parent as any)._charset;
-    if (!charset || charset === "utf-8") {
+    const charset = this.tab.charset;
+    if (!charset || charset === "utf-8" || isUTF8Character(data)) {
       return super.feedFromSession(data);
     }
     const decodedDataString = iconv.decode(data, charset);
     const decodedData = Buffer.from(decodedDataString);
     super.feedFromSession(decodedData);
+  }
+
+  feedFromTerminal(data: Buffer): void {
+    const charset = this.tab.charset;
+    if (!charset || charset === "utf-8") {
+      return super.feedFromTerminal(data);
+    }
+
+    const encodedDataString = iconv.encode(data.toString(), charset);
+    const encodedData = Buffer.from(encodedDataString);
+    super.feedFromTerminal(encodedData);
   }
 
   close(): void {

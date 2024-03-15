@@ -7,7 +7,7 @@ import { debounce } from "utils-decorators";
 
 /** @hidden */
 @Component({
-  template: require("./settingsTab.component.pug"),
+  template: "",
   styles: [``],
 })
 export class CharsetSettingsTabComponent {
