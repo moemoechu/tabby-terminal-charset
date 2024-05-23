@@ -6,6 +6,12 @@ Change Tabby terminal output charset from utf-8 to gbk, gb2312 etc...
 
 - [x] Support GBK charset.
 - [x] Support GB2312 charset.
+- [x] Support GB18030 charset. **Not Tested**
+- [x] Support Shift_JIS charset. **Not Tested**
+- [x] Support Big5 charset. **Not Tested**
+- [x] Support ISO charset (ISO-8859-1 - ISO-8859-16). **Not Tested**
+- [x] Support Windows codepages (cp874, cp1250 - cp1258). **Not Tested**
+- [x] Support IBM codepages (437, 720, 737, 775, 808, 850, 852, 855-858, 860-866, 869, 922, 1046, 1124, 1125, 1129, 1133, 1161-1163). **Not Tested**
 - [x] Support output.
 - [x] Support input.
 - [x] Tested on Windows with Tabby version 1.0.207.
