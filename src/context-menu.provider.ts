@@ -38,7 +38,6 @@ export class CharsetContextMenu extends TabContextMenuItemProvider {
       const groupCharset = charset.map((value) => ({
         type: "normal",
         label: this.translate.instant(value.name),
-        // checked: tab.charset === value.charset,
         click: () => {
           // 使用一种不那么优雅的方式在字符集不是UTF-8的时候把Tabby的UTF-8边界插件拿掉喵，这也是没办法的喵，不拿掉Tabby会吃字符喵，不要怪咱喵
           const stack = (tab.session.middleware as any).stack as SessionMiddleware[];
@@ -63,7 +62,6 @@ export class CharsetContextMenu extends TabContextMenuItemProvider {
 
       submenu.push(submenuGroup);
     }
-    // const menu =
     return [
       {
         label: this.translate.instant("Charset") + ` (${tab.charset.name})`,

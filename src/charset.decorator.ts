@@ -1,6 +1,6 @@
 import { Injectable, Injector } from "@angular/core";
 import { ToastrService } from "ngx-toastr";
-import { BaseTabComponent, ConfigService, LogService, Logger, TranslateService } from "tabby-core";
+import { ConfigService, LogService, Logger, TranslateService } from "tabby-core";
 import {
   BaseSession,
   BaseTerminalTabComponent,
@@ -9,8 +9,8 @@ import {
   UTF8SplitterMiddleware,
 } from "tabby-terminal";
 import { debounce } from "utils-decorators";
-import CharsetMiddleware from "./charset.middleware";
 import { CharsetEngagedTab } from "./api";
+import CharsetMiddleware from "./charset.middleware";
 
 @Injectable()
 export class CharsetDecorator extends TerminalDecorator {
