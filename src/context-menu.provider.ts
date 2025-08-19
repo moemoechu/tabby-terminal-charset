@@ -6,7 +6,7 @@ import {
   TabContextMenuItemProvider,
   TranslateService,
 } from "tabby-core";
-import { BaseTerminalTabComponent } from "tabby-terminal";
+import { BaseTerminalTabComponent, UTF8SplitterMiddleware } from "tabby-terminal";
 import { CharsetEngagedTab, SupportedCharsetGroups } from "./api";
 
 @Injectable()
@@ -26,6 +26,7 @@ export class CharsetContextMenu extends TabContextMenuItemProvider {
     if (!(tab instanceof BaseTerminalTabComponent)) {
       return [];
     }
+    // console.log(tab);
     const groups = SupportedCharsetGroups;
     const submenu = [];
     for (const group of groups) {
@@ -35,6 +36,28 @@ export class CharsetContextMenu extends TabContextMenuItemProvider {
         label: this.translate.instant(value.name),
         // checked: tab.charset === value.charset,
         click: () => {
+          if (value.charset !== "utf-8") {
+            const stack = (tab.session.middleware as any).stack as any[];
+            // console.log((tab.session.middleware as any).stack);
+            const utf8SplitterMiddleware = stack.find(
+              (value) => value instanceof UTF8SplitterMiddleware
+            );
+            if (utf8SplitterMiddleware) {
+              tab.session.middleware.remove(utf8SplitterMiddleware);
+            }
+            // console.log((tab.session.middleware as any).stack);
+          } else {
+            const stack = (tab.session.middleware as any).stack as any[];
+            // console.log((tab.session.middleware as any).stack);
+            const utf8SplitterMiddleware = stack.find(
+              (value) => value instanceof UTF8SplitterMiddleware
+            );
+            if (!utf8SplitterMiddleware) {
+              tab.session.middleware.push(new UTF8SplitterMiddleware());
+            }
+
+            // console.log((tab.session.middleware as any).stack);
+          }
           tab.charset = value;
         },
       }));
