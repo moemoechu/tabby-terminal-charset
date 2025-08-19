@@ -36,28 +36,18 @@ export class CharsetContextMenu extends TabContextMenuItemProvider {
         label: this.translate.instant(value.name),
         // checked: tab.charset === value.charset,
         click: () => {
-          if (value.charset !== "utf-8") {
-            const stack = (tab.session.middleware as any).stack as any[];
-            // console.log((tab.session.middleware as any).stack);
-            const utf8SplitterMiddleware = stack.find(
-              (value) => value instanceof UTF8SplitterMiddleware
-            );
-            if (utf8SplitterMiddleware) {
-              tab.session.middleware.remove(utf8SplitterMiddleware);
-            }
-            // console.log((tab.session.middleware as any).stack);
-          } else {
-            const stack = (tab.session.middleware as any).stack as any[];
-            // console.log((tab.session.middleware as any).stack);
-            const utf8SplitterMiddleware = stack.find(
-              (value) => value instanceof UTF8SplitterMiddleware
-            );
-            if (!utf8SplitterMiddleware) {
-              tab.session.middleware.push(new UTF8SplitterMiddleware());
-            }
-
-            // console.log((tab.session.middleware as any).stack);
+          // 使用一种不那么优雅的方式在字符集不是UTF-8的时候把Tabby的UTF-8边界插件拿掉喵
+          const stack = (tab.session.middleware as any).stack as any[];
+          // console.log((tab.session.middleware as any).stack);
+          const utf8SplitterMiddleware = stack.find(
+            (value) => value instanceof UTF8SplitterMiddleware
+          );
+          if (value.charset !== "utf-8" && utf8SplitterMiddleware) {
+            tab.session.middleware.remove(utf8SplitterMiddleware);
+          } else if (value.charset === "utf-8" && !utf8SplitterMiddleware) {
+            tab.session.middleware.push(new UTF8SplitterMiddleware());
           }
+          // console.log((tab.session.middleware as any).stack);
           tab.charset = value;
         },
       }));
