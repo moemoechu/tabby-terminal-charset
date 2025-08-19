@@ -53,7 +53,7 @@ export default class CharsetMiddleware extends SessionMiddleware {
     // console.log(`term raw input:${data.toString()}`);
     const encodedData = iconv.encode(data.toString(), charset);
     // const encodedData = Buffer.from(encodedDataString);
-    // console.log(`trem encoded input:${encodedData.toString()}`, encodedData);
+    // console.log(`term encoded input:${encodedData.toString()}`, encodedData);
     super.feedFromTerminal(encodedData);
   }
 
