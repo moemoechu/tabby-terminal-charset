@@ -6,7 +6,11 @@ import {
   TabContextMenuItemProvider,
   TranslateService,
 } from "tabby-core";
-import { BaseTerminalTabComponent, UTF8SplitterMiddleware } from "tabby-terminal";
+import {
+  BaseTerminalTabComponent,
+  SessionMiddleware,
+  UTF8SplitterMiddleware,
+} from "tabby-terminal";
 import { CharsetEngagedTab, SupportedCharsetGroups } from "./api";
 
 @Injectable()
@@ -36,8 +40,8 @@ export class CharsetContextMenu extends TabContextMenuItemProvider {
         label: this.translate.instant(value.name),
         // checked: tab.charset === value.charset,
         click: () => {
-          // 使用一种不那么优雅的方式在字符集不是UTF-8的时候把Tabby的UTF-8边界插件拿掉喵
-          const stack = (tab.session.middleware as any).stack as any[];
+          // 使用一种不那么优雅的方式在字符集不是UTF-8的时候把Tabby的UTF-8边界插件拿掉喵，这也是没办法的喵，不拿掉Tabby会吃字符喵，不要怪咱喵
+          const stack = (tab.session.middleware as any).stack as SessionMiddleware[];
           // console.log((tab.session.middleware as any).stack);
           const utf8SplitterMiddleware = stack.find(
             (value) => value instanceof UTF8SplitterMiddleware
