@@ -26,10 +26,19 @@ Current charset will show on context menu.
 
 ### Known Issue
 
-When use charset other then UTF-8, but the file you view is using UTF-8, the terminal is also display as well.
-That is mean the terminal will both support UTF-8 and selected charset.
-Tabby not recognize charset other then UTF-8, using backspace to delete input will cause gabled character
-This plugin is only for emergency use, the output may become mess if there are multiply charset mixed in one page.
+#### Cursor issue
+
+Cursor is abnormal when navigate between wide characters
+
+#### Delete issue
+
+When delete wide characters, terminal may only delete 1byte of character, so you must delete multiple times. This also happened in editor like vi/vim.
+
+#### Chaos
+
+The terminal output my dive into BIG CHAOS when there are multiply charset mixed in one page.
+
+This plugin is design for **EMERGENCY USE**. you'd better edit file other then UTF-8 outside terminal, the plugin is not guarantee actual content write in your file.
 
 ## Screenshot
 
