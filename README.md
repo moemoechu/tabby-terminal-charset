@@ -6,8 +6,11 @@ Change Tabby terminal output charset from utf-8 to gbk, gb2312 etc...
 
 - [x] Support GBK/GB2312/GB18030/Big5/Shift_JIS/EUC-JP/EUC-KR charset.
 - [x] Support ISO charset (ISO-8859-1 - ISO-8859-16).
-- [x] Support Windows codepages (cp874, cp1250 - cp1258).
-- [x] Support IBM codepages (437, 720, 737, 775, 808, 850, 852, 855-858, 860-866, 869, 922, 1046, 1124, 1125, 1129, 1133, 1161-1163).
+- [x] Support Windows codepage (cp874, cp1250 - cp1258).
+- [x] Support IBM codepage (437, 720, 737, 775, 808, 850, 852, 855-858, 860-866, 869, 922, 1046, 1124, 1125, 1129, 1133, 1161-1163).
+- [x] Support KOI8 codepage (koi8-r, koi8-u, koi8-ru, koi8-t).
+- [x] Support Mac codepage (maccroatian, maccyrillic, macgreek, maciceland, macroman, macromania, macthai, macturkish, macukraine, maccenteuro, macintosh).
+- [x] Support Miscellaneous codepage (armscii8, rk1048, tcvn, georgianacademy, georgianps, pt154, viscii, iso646cn, iso646jp, hproman8, tis620).
 
 ## Usage
 
@@ -37,6 +40,13 @@ This plugin is only for emergency use, the output may become mess if there are m
 ### Test case
 
 ![Test case](screenshots/tests.png)
+
+## Plan
+
+### 2.0
+
+- Setting UI for config per session charset
+- Persist charset settings in config
 
 ## Changelog
 
