@@ -5,13 +5,20 @@ import { CharsetPluginConfig } from "./config.provider";
 import { Injector } from "@angular/core";
 import { CharsetEngagedTab } from "./api";
 import { inspect } from "util";
+import isValidUTF8 from "utf-8-validate";
 
-function isUTF8Character(char) {
-  // Convert the character to a buffer
-  const buffer = Buffer.from(char, "utf8");
-
-  // Check if the buffer is valid UTF-8
-  return Buffer.compare(Buffer.from(buffer.toString("utf8")), buffer) === 0;
+function isUTF8Character(char: Buffer) {
+  // // Convert the character to a buffer
+  // const buffer = Buffer.from(char, "utf8");
+  // console.log(buffer);
+  // // Check if the buffer is valid UTF-8
+  // const result = Buffer.compare(Buffer.from(buffer.toString("utf8")), buffer);
+  // console.log(result);
+  // return result === 0;
+  const result = isValidUTF8(char);
+  // console.log(char.toString());
+  // console.log(`result:${result}`);
+  return result;
 }
 
 export default class CharsetMiddleware extends SessionMiddleware {
@@ -28,9 +35,11 @@ export default class CharsetMiddleware extends SessionMiddleware {
     if (!charset || charset === "utf-8" || isUTF8Character(data)) {
       return super.feedFromSession(data);
     }
+    // console.log(`session raw ${data.toString()}`, data);
     const decodedDataString = iconv.decode(data, charset);
     // console.log(inspect(decodedDataString));
     const decodedData = Buffer.from(decodedDataString);
+    // console.log(`session decoded ${decodedData.toString()}`);
     // console.log(decodedData);
     super.feedFromSession(decodedData);
   }
@@ -41,9 +50,10 @@ export default class CharsetMiddleware extends SessionMiddleware {
     if (!charset || charset === "utf-8") {
       return super.feedFromTerminal(data);
     }
-
-    const encodedDataString = iconv.encode(data.toString(), charset);
-    const encodedData = Buffer.from(encodedDataString);
+    // console.log(`term raw input:${data.toString()}`);
+    const encodedData = iconv.encode(data.toString(), charset);
+    // const encodedData = Buffer.from(encodedDataString);
+    // console.log(`trem encoded input:${encodedData.toString()}`, encodedData);
     super.feedFromTerminal(encodedData);
   }
 
