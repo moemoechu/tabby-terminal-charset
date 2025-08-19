@@ -1,6 +1,6 @@
 # Tabby Terminal Charset Plugin
 
-Change Tabby terminal output charset from utf-8 to gbk, gb2312 etc...
+Add a tab context menu to switch charset in Tabby terminal like gbk, shift_jis, euc-kr etc...
 
 ## Features
 

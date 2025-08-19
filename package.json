@@ -1,6 +1,6 @@
 {
   "name": "tabby-terminal-charset",
-  "description": "Change Tabby terminal output charset from utf-8 to gbk, gb2312 etc...",
+  "description": "Add a tab context menu to switch charset in Tabby terminal like gbk, shift_jis, euc-kr etc...",
   "module": "index.ts",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
