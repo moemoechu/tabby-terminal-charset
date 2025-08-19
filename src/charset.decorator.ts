@@ -39,6 +39,12 @@ export class CharsetDecorator extends TerminalDecorator {
     // if (!(tab.parent instanceof BaseTabComponent)) {
     //   return;
     // }
+    if (!tab.charset) {
+      tab.charset = {
+        name: "UTF-8",
+        charset: "utf-8",
+      };
+    }
     const middleware = new CharsetMiddleware(this.injector, tab);
     session.middleware.push(middleware);
   }

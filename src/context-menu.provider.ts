@@ -1,17 +1,13 @@
 import { Injectable } from "@angular/core";
-import { ToastrService } from "ngx-toastr";
 import {
-  BaseTabComponent,
   ConfigService,
   LogService,
   MenuItemOptions,
-  SplitTabComponent,
   TabContextMenuItemProvider,
   TranslateService,
 } from "tabby-core";
-import { ElectronService, ElectronHostWindow } from "tabby-electron";
 import { BaseTerminalTabComponent } from "tabby-terminal";
-import { CharsetEngagedTab, SupportedCharset } from "./api";
+import { CharsetEngagedTab, SupportedCharsetGroups } from "./api";
 
 @Injectable()
 export class CharsetContextMenu extends TabContextMenuItemProvider {
@@ -30,18 +26,32 @@ export class CharsetContextMenu extends TabContextMenuItemProvider {
     if (!(tab instanceof BaseTerminalTabComponent)) {
       return [];
     }
+    const groups = SupportedCharsetGroups;
+    const submenu = [];
+    for (const group of groups) {
+      const { groupName, charset } = group;
+      const groupCharset = charset.map((value) => ({
+        type: "normal",
+        label: this.translate.instant(value.name),
+        // checked: tab.charset === value.charset,
+        click: () => {
+          tab.charset = value;
+        },
+      }));
+      const submenuGroup = {
+        label: this.translate.instant(groupName),
+        type: "submenu",
+        submenu: groupCharset,
+      };
+
+      submenu.push(submenuGroup);
+    }
+    // const menu =
     return [
       {
-        label: this.translate.instant("Charset"),
+        label: this.translate.instant("Charset") + ` (${tab.charset.name})`,
         type: "submenu",
-        submenu: SupportedCharset.map((value) => ({
-          type: "radio",
-          label: this.translate.instant(value.name),
-          checked: tab.charset === value.charset,
-          click: () => {
-            tab.charset = value.charset;
-          },
-        })),
+        submenu,
       },
     ];
   }
