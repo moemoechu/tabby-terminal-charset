@@ -9,18 +9,23 @@ import {
   UTF8SplitterMiddleware,
 } from "tabby-terminal";
 import { debounce } from "utils-decorators";
-import { CharsetEngagedTab } from "./api";
+import { CharsetEngagedTab, CharsetPluginConfig } from "./api";
 import CharsetMiddleware from "./charset.middleware";
+import { CharsetService } from "./charset.service";
 
 @Injectable()
 export class CharsetDecorator extends TerminalDecorator {
   private logger: Logger;
+  get pluginConfig(): CharsetPluginConfig {
+    return this.config.store.charsetPlugin as CharsetPluginConfig;
+  }
   constructor(
     private config: ConfigService,
     private logService: LogService,
     private toastr: ToastrService,
     private translate: TranslateService,
-    protected injector: Injector
+    protected injector: Injector,
+    private charsetService: CharsetService
   ) {
     super();
 
@@ -46,10 +51,15 @@ export class CharsetDecorator extends TerminalDecorator {
     //   return;
     // }
     if (!tab.charset) {
-      tab.charset = {
-        name: "UTF-8",
-        charset: "utf-8",
-      };
+      const map = this.charsetService.getCharsetBySessionId(tab.profile.id);
+      if (map) {
+        tab.charset = map.charset;
+      } else {
+        tab.charset = {
+          name: "UTF-8",
+          charset: "utf-8",
+        };
+      }
     } else if (tab.charset.charset !== "utf-8") {
       const stack = (tab.session.middleware as any).stack as SessionMiddleware[];
       const utf8SplitterMiddleware = stack.find((value) => value instanceof UTF8SplitterMiddleware);

@@ -12,6 +12,7 @@ import {
   UTF8SplitterMiddleware,
 } from "tabby-terminal";
 import { CharsetEngagedTab, SupportedCharsetGroups } from "./api";
+import { CharsetService } from "./charset.service";
 
 @Injectable()
 export class CharsetContextMenu extends TabContextMenuItemProvider {
@@ -21,7 +22,8 @@ export class CharsetContextMenu extends TabContextMenuItemProvider {
   constructor(
     public config: ConfigService,
     private logService: LogService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private charsetService: CharsetService
   ) {
     super();
   }
@@ -52,6 +54,7 @@ export class CharsetContextMenu extends TabContextMenuItemProvider {
           }
           // console.log((tab.session.middleware as any).stack);
           tab.charset = value;
+          this.charsetService.setCharsetBySessionId(tab.profile.id, value);
         },
       }));
       const submenuGroup = {

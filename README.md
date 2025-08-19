@@ -54,11 +54,15 @@ This plugin is design for **EMERGENCY USE**. you'd better edit file other then U
 
 ### 2.0
 
-- Setting UI for config per session charset
-- Persist charset settings in config
+- [x] Persist charset settings in config
+
+### 3.0
+
+- [ ] Settings UI for more advanced config
 
 ## Changelog
 
+- 2.0.0: Support persist session charset settings in config.
 - 1.1.0: Support more charset and group menu items.
 - 1.0.2: Support input & output.
 - 1.0.0: Initial version.

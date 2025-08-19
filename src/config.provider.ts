@@ -1,10 +1,9 @@
 import { ConfigProvider } from "tabby-core";
-
-export type CharsetPluginConfig = {};
+import { CharsetPluginConfig } from "./api";
 
 /** @hidden */
 export class CharsetConfigProvider extends ConfigProvider {
-  defaults: { charsetPlugin: any } = {
-    charsetPlugin: {},
+  defaults: { charsetPlugin: CharsetPluginConfig } = {
+    charsetPlugin: { enable: true, perSessionCharsetEnabled: true, perSessionCharsetMap: [] },
   };
 }

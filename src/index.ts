@@ -20,7 +20,7 @@ import { CharsetContextMenu } from "./context-menu.provider";
 @NgModule({
   imports: [CommonModule, FormsModule, TabbyCoreModule, NgbModule],
   providers: [
-    // { provide: ConfigProvider, useClass: CharsetConfigProvider, multi: true },
+    { provide: ConfigProvider, useClass: CharsetConfigProvider, multi: true },
     // { provide: SettingsTabProvider, useClass: CharsetSettingsTabProvider, multi: true },
     { provide: TerminalDecorator, useClass: CharsetDecorator, multi: true },
     { provide: TabContextMenuItemProvider, useClass: CharsetContextMenu, multi: true },

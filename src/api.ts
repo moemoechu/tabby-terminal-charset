@@ -7,8 +7,11 @@ export interface CharsetEngagedTab extends BaseTerminalTabComponent<any> {
   };
 }
 
+export type Charset = { name: string; charset: string };
+export type CharsetGroup = { groupName: string; charset: Charset[] };
+
 // 理论上iconv-lite支持的字符集都能支持喵，就是要手工编写配置太麻烦了喵，先只支持一部分好了喵
-export const SupportedCharsetGroups = [
+export const SupportedCharsetGroups: CharsetGroup[] = [
   {
     groupName: "Common",
     charset: [
@@ -129,3 +132,13 @@ export const SupportedCharsetGroups = [
     }),
   },
 ];
+
+export const SupportedCharset = SupportedCharsetGroups.reduce((acc, current) => {
+  return acc.concat(current.charset);
+}, [] as Charset[]);
+
+export type CharsetPluginConfig = {
+  enable: boolean;
+  perSessionCharsetEnabled: boolean;
+  perSessionCharsetMap: { sessionId: string; charset: Charset }[];
+};
