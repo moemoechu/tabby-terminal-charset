@@ -4,17 +4,10 @@ Change Tabby terminal output charset from utf-8 to gbk, gb2312 etc...
 
 ## Features
 
-- [x] Support GBK charset.
-- [x] Support GB2312 charset.
-- [x] Support GB18030 charset. **Not Tested**
-- [x] Support Shift_JIS charset. **Not Tested**
-- [x] Support Big5 charset. **Not Tested**
-- [x] Support ISO charset (ISO-8859-1 - ISO-8859-16). **Not Tested**
-- [x] Support Windows codepages (cp874, cp1250 - cp1258). **Not Tested**
-- [x] Support IBM codepages (437, 720, 737, 775, 808, 850, 852, 855-858, 860-866, 869, 922, 1046, 1124, 1125, 1129, 1133, 1161-1163). **Not Tested**
-- [x] Support output.
-- [x] Support input.
-- [x] Tested on Windows with Tabby version 1.0.207.
+- [x] Support GBK/GB2312/GB18030/Big5/Shift_JIS/EUC-JP/EUC-KR charset.
+- [x] Support ISO charset (ISO-8859-1 - ISO-8859-16).
+- [x] Support Windows codepages (cp874, cp1250 - cp1258).
+- [x] Support IBM codepages (437, 720, 737, 775, 808, 850, 852, 855-858, 860-866, 869, 922, 1046, 1124, 1125, 1129, 1133, 1161-1163).
 
 ## Usage
 
@@ -26,6 +19,8 @@ To install, use Tabby builtin plugin manager.
 
 To change terminal charset, use the context menu from tab header.
 
+Current charset will show on context menu.
+
 ### Known Issue
 
 When use charset other then UTF-8, but the file you view is using UTF-8, the terminal is also display as well.
@@ -35,17 +30,16 @@ This plugin is only for emergency use, the output may become mess if there are m
 
 ## Screenshot
 
-### UTF-8
+### Context Menu
 
-![Context UTF8](screenshots/context_utf8.png)
-![Terminal UTF8](screenshots/terminal_utf8.png)
+![Context Menu](screenshots/context-menu.png)
 
-### GBK
+### Test case
 
-![Context GBK](screenshots/context_gbk.png)
-![Terminal GBK](screenshots/terminal_gbk.png)
+![Test case](screenshots/tests.png)
 
 ## Changelog
 
+- 1.1.0: Support more charset and group menu items.
 - 1.0.2: Support input & output.
 - 1.0.0: Initial version.
