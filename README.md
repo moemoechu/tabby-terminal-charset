@@ -58,7 +58,11 @@ This plugin is design for **EMERGENCY USE**. you'd better edit file other then U
 
 ### 3.0
 
-- [ ] Settings UI for more advanced config
+- [ ] Settings UI for more advanced config(maybe not needed?)
+- [ ] Setting: input always UTF-8(maybe not needed?)
+- [ ] Setting: output always UTF-8(maybe not needed?)
+- [ ] Setting: input & output different charset(maybe not needed)
+- [ ] Setting: debug options
 
 ## Changelog
 
