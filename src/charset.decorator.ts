@@ -1,7 +1,13 @@
 import { Injectable, Injector } from "@angular/core";
 import { ToastrService } from "ngx-toastr";
 import { BaseTabComponent, ConfigService, LogService, Logger, TranslateService } from "tabby-core";
-import { BaseSession, BaseTerminalTabComponent, TerminalDecorator } from "tabby-terminal";
+import {
+  BaseSession,
+  BaseTerminalTabComponent,
+  SessionMiddleware,
+  TerminalDecorator,
+  UTF8SplitterMiddleware,
+} from "tabby-terminal";
 import { debounce } from "utils-decorators";
 import CharsetMiddleware from "./charset.middleware";
 import { CharsetEngagedTab } from "./api";
@@ -44,6 +50,12 @@ export class CharsetDecorator extends TerminalDecorator {
         name: "UTF-8",
         charset: "utf-8",
       };
+    } else if (tab.charset.charset !== "utf-8") {
+      const stack = (tab.session.middleware as any).stack as SessionMiddleware[];
+      const utf8SplitterMiddleware = stack.find((value) => value instanceof UTF8SplitterMiddleware);
+      if (utf8SplitterMiddleware) {
+        tab.session.middleware.remove(utf8SplitterMiddleware);
+      }
     }
     const middleware = new CharsetMiddleware(this.injector, tab);
     session.middleware.push(middleware);
