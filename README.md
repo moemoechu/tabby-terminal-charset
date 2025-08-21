@@ -52,12 +52,7 @@ This plugin is design for **EMERGENCY USE**. you'd better edit file other then U
 
 ## Plan
 
-### 2.0
-
 - [x] Persist charset settings in config
-
-### 3.0
-
 - [ ] Settings UI for more advanced config(maybe not needed?)
 - [ ] Setting: input always UTF-8(maybe not needed?)
 - [ ] Setting: output always UTF-8(maybe not needed?)
