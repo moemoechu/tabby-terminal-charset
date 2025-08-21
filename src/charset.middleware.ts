@@ -3,7 +3,6 @@ import iconv from "iconv-lite";
 import { SessionMiddleware } from "tabby-terminal";
 import isValidUTF8 from "utf-8-validate";
 import { CharsetEngagedTab } from "./api";
-import { CharsetService } from "./charset.service";
 
 export default class CharsetMiddleware extends SessionMiddleware {
   tab: CharsetEngagedTab;

@@ -13,8 +13,8 @@ import { TerminalDecorator } from "tabby-terminal";
 import { CharsetConfigProvider } from "./config.provider";
 import { CharsetDecorator } from "./charset.decorator";
 import { CharsetService } from "./charset.service";
-import { CharsetSettingsTabComponent } from "./settingsTab.component";
-import { CharsetSettingsTabProvider } from "./settingsTabProvider";
+import { CharsetSettingsTabComponent } from "./settings-tab.component";
+import { CharsetSettingsTabProvider } from "./settings-tab.provider";
 import { CharsetContextMenu } from "./context-menu.provider";
 
 @NgModule({
