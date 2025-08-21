@@ -60,15 +60,9 @@ export class CharsetDecorator extends TerminalDecorator {
           charset: "utf-8",
         };
       }
-    } else if (tab.charset.charset !== "utf-8") {
-      const stack = (tab.session.middleware as any).stack as SessionMiddleware[];
-      const utf8SplitterMiddleware = stack.find((value) => value instanceof UTF8SplitterMiddleware);
-      if (utf8SplitterMiddleware) {
-        tab.session.middleware.remove(utf8SplitterMiddleware);
-      }
     }
     const middleware = new CharsetMiddleware(this.injector, tab);
-    session.middleware.push(middleware);
+    session.middleware.unshift(middleware);
   }
 
   @debounce(500)
