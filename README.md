@@ -2,6 +2,10 @@
 
 Add a tab context menu to switch charset in Tabby terminal like gbk, shift_jis, euc-kr etc...
 
+## Background
+
+Tabby's terminal front xterm.js is design for UTF-8. This plugin using iconv-lite module to convert text charset on the fly. [This page](https://xtermjs.org/docs/guides/encoding/) explains the principle.
+
 ## Features
 
 - [x] Support GBK/GB2312/GB18030/Big5/Shift_JIS/EUC-JP/EUC-KR charset.
@@ -38,7 +42,9 @@ When delete wide characters, terminal may only delete 1byte of character, so you
 
 The terminal output my dive into BIG CHAOS when there are multiply charset mixed in one page.
 
-This plugin is design for **EMERGENCY USE**. you'd better edit file other then UTF-8 outside terminal, the plugin is not guarantee actual content write in your file.
+## Best Practices
+
+You'd better edit file other then UTF-8 outside terminal. This plugin is not guarantee actual content write in your file, please double check your file content when using different charset.
 
 ## Screenshot
 
