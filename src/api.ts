@@ -1,7 +1,7 @@
 import { BaseTerminalTabComponent } from "tabby-terminal";
 
 export interface CharsetEngagedTab extends BaseTerminalTabComponent<any> {
-  charset: {
+  charset?: {
     name: string;
     charset: string;
   };
