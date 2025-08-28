@@ -1,7 +1,6 @@
 import { Injector } from "@angular/core";
 import iconv from "iconv-lite";
 import { SessionMiddleware } from "tabby-terminal";
-import isValidUTF8 from "utf-8-validate";
 import { CharsetEngagedTab } from "./api";
 
 export default class CharsetMiddleware extends SessionMiddleware {
@@ -14,7 +13,9 @@ export default class CharsetMiddleware extends SessionMiddleware {
 
   feedFromSession(data: Buffer): void {
     const { charset } = this.tab.charset;
-    if (!charset || charset === "utf-8" || isValidUTF8(data)) {
+    // console.log(`session raw ${data.toString()}`, data);
+    // console.log(data);
+    if (!charset || charset === "utf-8") {
       return super.feedFromSession(data);
     }
     // console.log(`session raw ${data.toString()}`, data);
@@ -29,6 +30,7 @@ export default class CharsetMiddleware extends SessionMiddleware {
       return super.feedFromTerminal(data);
     }
     // console.log(`term raw input:${data.toString()}`);
+    // console.log(data);
     const encodedData = iconv.encode(data.toString(), charset);
     // console.log(`term encoded input:${encodedData.toString()}`, encodedData);
     super.feedFromTerminal(encodedData);

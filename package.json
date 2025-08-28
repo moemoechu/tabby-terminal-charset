@@ -6,7 +6,7 @@
   "typings": "dist/index.d.ts",
   "type": "commonjs",
   "license": "MIT",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "repository": {
     "url": "git+https://github.com/moemoechu/tabby-terminal-charset.git"
   },
@@ -49,7 +49,6 @@
     "tabby-terminal": "latest",
     "ts-loader": "^9",
     "typescript": "^4",
-    "utf-8-validate": "^6.0.5",
     "utils-decorators": "^2.0.7",
     "webpack": "^5",
     "webpack-cli": "^5"
